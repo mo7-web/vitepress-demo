@@ -2,7 +2,14 @@
   "name": "vitepress-demo",
   "version": "1.0.0",
   "description": "墨七的 vitepress 测试",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "author": "墨七",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
   "dependencies": {},
   "devDependencies": {
     "vitepress": "^1.5.0"
