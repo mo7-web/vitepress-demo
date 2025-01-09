@@ -6,6 +6,6 @@
     "allowJs": true,
     "outDir": "./dist"
   },
-  "include": ["doc/.vitepress/**/*"],
+  "include": ["docs/.vitepress/**/*"],
   "exclude": ["node_modules", "dist", "private"]
 }
