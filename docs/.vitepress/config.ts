@@ -6,7 +6,6 @@ export default defineConfig({
   description: "墨七的个人博客",
   lang: "zh-CN",
   base: "/",
-  srcDir: "docs",
   outDir: "../dist",
   cacheDir: "../.cache",
   themeConfig: {
