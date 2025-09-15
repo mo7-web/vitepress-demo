@@ -7,9 +7,6 @@ GenerateRewrites({
   srcDir: "./docs",
 });
 
-console.log("GetRewrites", rewrites);
-console.log("GetSrcExclude", srcExclude);
-
 const MyConfig = {
   rewrites, // 路径映射
   srcExclude, // 排除列表
