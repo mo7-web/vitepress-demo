@@ -2,7 +2,7 @@
 import fs from "fs-extra";
 import path from "path";
 import matter from "gray-matter";
-import { rewrites } from "../data/index";
+import { rewrites, srcExclude } from "../data/index";
 import template from "art-template";
 
 type opt = {
@@ -124,24 +124,21 @@ export function GenerateRewrites(opt: opt): GenerateRewritesReturn {
 
 export function GenerateStaticHtml(siteConfig: any) {
   const TemplatePath = path.resolve(__dirname, "RedirectPage.html");
-
   const writeDir = path.resolve(siteConfig.outDir);
   if (!fs.existsSync(writeDir)) {
     fs.mkdirpSync(writeDir);
   }
 
-  if (rewrites && typeof rewrites == "object") {
-    for (const from in rewrites) {
-      const writeFilePath = from.replace(/\.md$/, ".html");
-      // 补全路径
-      const fullWritePath = path.resolve(writeDir, writeFilePath);
-      const dataPath = "/" + (rewrites as any)[from].replace(/\.md$/, ".html");
+  for (const from in rewrites) {
+    const writeFilePath = from.replace(/\.md$/, ".html");
+    // 补全路径
+    const fullWritePath = path.resolve(writeDir, writeFilePath);
+    const dataPath = "/" + rewrites[from].replace(/\.md$/, ".html");
 
-      var htmlCont = template(TemplatePath, {
-        ToPath: dataPath,
-      });
+    var htmlCont = template(TemplatePath, {
+      ToPath: dataPath,
+    });
 
-      fs.writeFileSync(fullWritePath, htmlCont, "utf8");
-    }
+    fs.writeFileSync(fullWritePath, htmlCont, "utf8");
   }
 }

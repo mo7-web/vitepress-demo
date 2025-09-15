@@ -6,10 +6,11 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
     "@types/bun": "^1.2.21",
+    "@types/fs-extra": "^11.0.4",
     "fs-extra": "^11.3.1",
     "gray-matter": "^4.0.3",
+    "sass-embedded": "^1.92.1",
     "vitepress": "^2.0.0-alpha.12"
   },
   "dependencies": {
