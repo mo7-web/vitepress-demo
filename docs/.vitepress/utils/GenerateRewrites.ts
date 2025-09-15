@@ -123,7 +123,7 @@ export function GenerateRewrites(opt: opt): GenerateRewritesReturn {
 }
 
 export function GenerateStaticHtml(siteConfig: any) {
-  const TemplatePath = path.resolve(__dirname, "RedirectPage.html");
+  const TemplatePath = path.resolve(__dirname, "refresh.html");
   const writeDir = path.resolve(siteConfig.outDir);
   if (!fs.existsSync(writeDir)) {
     fs.mkdirpSync(writeDir);
