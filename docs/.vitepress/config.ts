@@ -1,33 +1,26 @@
 import { defineConfig } from "vitepress";
-import { GenerateRewrites } from "./utils/GenerateRewrites";
+import { GenerateRewrites, GenerateStaticHtml } from "./utils/GenerateRewrites";
 import { nav, sidebar } from "./themeConfig";
+import { rewrites, srcExclude } from "./data/index";
 
-const GenerateConfig = GenerateRewrites({
+// 生成相关数据中，并写入 data 目录
+GenerateRewrites({
   srcDir: "./docs",
 });
 
-const MyConfig = {
-  rewrites: {
-    // 路径映射，用于实现 frontmatter.permalink
-    ...GenerateConfig.rewrites,
-  },
-
-  srcExclude: [
-    // 需要排除渲染的文件可用于实现 frontmatter.exclude
-    ...GenerateConfig.srcExclude,
-  ],
-};
-
-console.log("MyConfig", MyConfig);
-
 export default defineConfig({
-  ...MyConfig,
+  // ...MyConfig,
   title: "My Awesome Project",
   description: "A VitePress Site",
   base: "/",
   srcDir: "./", // 相对于，根目录为 .vitepress 所在目录
   outDir: "../dist",
   assetsDir: "vitepress-assets",
+  rewrites, // 路径映射
+  srcExclude, // 排除列表
+  buildEnd(siteConfig) {
+    GenerateStaticHtml(siteConfig);
+  },
   themeConfig: {
     nav,
     sidebar,

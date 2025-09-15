@@ -11,5 +11,8 @@
     "fs-extra": "^11.3.1",
     "gray-matter": "^4.0.3",
     "vitepress": "^2.0.0-alpha.12"
+  },
+  "dependencies": {
+    "art-template": "^4.13.4"
   }
 }

@@ -2,6 +2,8 @@
 import fs from "fs-extra";
 import path from "path";
 import matter from "gray-matter";
+import { rewrites } from "../data/index";
+import template from "art-template";
 
 type opt = {
   srcDir: string;
@@ -106,8 +108,40 @@ export function GenerateRewrites(opt: opt): GenerateRewritesReturn {
       srcExclude.push(item.relativePath);
     }
   });
+  const dataDir = path.resolve(opt.srcDir, ".vitepress", "data");
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirpSync(dataDir);
+  }
+  const rewritesFile = path.resolve(dataDir, "rewrites.json");
+  fs.writeFileSync(rewritesFile, JSON.stringify(rewrites, null, 2), "utf8");
+  const srcExcludeFile = path.resolve(dataDir, "srcExclude.json");
+  fs.writeFileSync(srcExcludeFile, JSON.stringify(srcExclude, null, 2), "utf8");
   return {
     rewrites,
     srcExclude,
   };
+}
+
+export function GenerateStaticHtml(siteConfig: any) {
+  const TemplatePath = path.resolve(__dirname, "RedirectPage.html");
+
+  const writeDir = path.resolve(siteConfig.outDir);
+  if (!fs.existsSync(writeDir)) {
+    fs.mkdirpSync(writeDir);
+  }
+
+  if (rewrites && typeof rewrites == "object") {
+    for (const from in rewrites) {
+      const writeFilePath = from.replace(/\.md$/, ".html");
+      // 补全路径
+      const fullWritePath = path.resolve(writeDir, writeFilePath);
+      const dataPath = "/" + (rewrites as any)[from].replace(/\.md$/, ".html");
+
+      var htmlCont = template(TemplatePath, {
+        ToPath: dataPath,
+      });
+
+      fs.writeFileSync(fullWritePath, htmlCont, "utf8");
+    }
+  }
 }
