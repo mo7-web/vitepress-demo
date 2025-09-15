@@ -14,3 +14,7 @@ go run docs/.vitepress/script/permalink.go
 ```
 
 The script writes `data.json` containing an array of objects with `path` and `meta` fields.
+
+## 更改说明
+
+实现了 `frontmatter.exclude` 和 `frontmatter.permalink` 功能
