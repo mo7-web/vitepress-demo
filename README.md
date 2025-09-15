@@ -18,3 +18,5 @@ The script writes `data.json` containing an array of objects with `path` and `me
 ## 更改说明
 
 实现了 `frontmatter.exclude` 和 `frontmatter.permalink` 功能
+
+## 实现 sidebar 自动化
